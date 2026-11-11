@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>AYUSHMAN | My Gallery</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  padding: 25px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #252525;
+}
+
+.logo {
+  font-size: 23px;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+header span {
+  color: #888;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 45px 6%;
+}
+
+.intro {
+  margin-bottom: 30px;
+}
+
+.intro p {
+  color: #888;
+  letter-spacing: 4px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.intro h1 {
+  font-size: clamp(38px, 7vw, 65px);
+  letter-spacing: 3px;
+}
+
+.intro h1 span {
+  color: #777;
+}
+
+.hero {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  background: #181818;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.section-title {
+  margin: 55px 0 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-title h2 {
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.section-title span {
+  color: #777;
+  font-size: 12px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  background: #181818;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.gallery img:hover {
+  opacity: 0.75;
+  transform: scale(1.02);
+}
+
+footer {
+  text-align: center;
+  padding: 35px 10px;
+  color: #777;
+  font-size: 12px;
+  letter-spacing: 2px;
+  border-top: 1px solid #252525;
+  margin-top: 50px;
+}
+
+.viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.97);
+  justify-content: center;
+  align-items: center;
+  padding: 40px 15px;
+}
+
+.viewer img {
+  max-width: 95%;
+  max-height: 85vh;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  color: white;
+  font-size: 35px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media(max-width:650px) {
+  .container {
+    padding: 30px 5%;
+  }
+
+  .hero {
+    height: 260px;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .gallery img {
+    height: 170px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">AYUSHMAN.</div>
+  <span>PERSONAL ALBUM</span>
+</header>
+
+<main class="container">
+
+  <section class="intro">
+    <p>WELCOME TO MY WORLD</p>
+    <h1>MY <span>GALLERY.</span></h1>
+  </section>
+
+  <img
+    class="hero"
+    src="images/photo1.jpg"
+    alt="Featured Photo"
+    onclick="openViewer(this.src)"
+  >
+
+  <section class="section-title">
+    <h2>ALL PHOTOS</h2>
+    <span>MY COLLECTION</span>
+  </section>
+
+  <section class="gallery" id="gallery"></section>
+
+</main>
+
+<footer>
+  © 2026 AYUSHMAN • ALL RIGHTS RESERVED
+</footer>
+
+<div class="viewer" id="viewer" onclick="closeViewer()">
+  <button class="close" onclick="closeViewer()">×</button>
+  <img id="largePhoto" alt="Full size photo">
+</div>
+
+<script>
+
+const photos = [
+  "photo2.jpg",
+  "photo3.jpg",
+  "photo4.jpg",
+  "photo5.jpg",
+  "photo6.jpg",
+  "photo7.jpg"
+];
+
+const gallery = document.getElementById("gallery");
+
+photos.forEach((photo, index) => {
+
+  const img = document.createElement("img");
+
+  img.src = "images/" + photo;
+  img.alt = "Photo " + (index + 1);
+  img.loading = "lazy";
+
+  img.onclick = () => openViewer(img.src);
+
+  gallery.appendChild(img);
+
+});
+
+function openViewer(src) {
+  document.getElementById("largePhoto").src = src;
+  document.getElementById("viewer").style.display = "flex";
+}
+
+function closeViewer() {
+  document.getElementById("viewer").style.display = "none";
+}
+
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") closeViewer();
+});
+
+</script>
+
+</body>
+</html>
